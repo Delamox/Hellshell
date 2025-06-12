@@ -56,12 +56,8 @@ PopupWindow {
         height: parent.height
         color: "#404040"
         focus: true
-        Text {
-            id: text
-        }
 
         Keys.onPressed: (event)=> {
-            console.log("bbrraew");
             if (event.key == 16777235 || event.key == Qt.Key_W){
                 buffer = buffer + "u"
                 input();
@@ -76,7 +72,6 @@ PopupWindow {
                 input();
             }
             function input() {
-                text.text = buffer;
                 var deleteBuffer = [];
 
                 deleteBuffer = strata.filter(doesNotStartsWith);
@@ -84,7 +79,6 @@ PopupWindow {
                 clear(deleteBuffer, "gray")
             
                 if (strata.length == 0) {
-                    text.text = "WRONG IDIOT";
                     setup();
                 }
 
@@ -94,7 +88,6 @@ PopupWindow {
                         element.head = element.head.children[1];
 
                         if (element.seq == buffer) {
-                            text.text = element.act
                             if (element.act == "shutdown") {
                                 shutdownProc.running = true;
                             }
