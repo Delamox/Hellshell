@@ -12,6 +12,7 @@ PopupWindow {
             {seq: "udrlu", len: 5, act: "yeyy :3", head: seq1, res: []},
             {seq: "ddlrlr", len: 6, act: "yoooeoeyy :3", head: seq2, res: []},
             {seq: "urddd", len: 5, act: "shutdown", head: seq3, res: []},
+            {seq: "ddur", len: 4, act: "resupply", head: seq4, res: []},
         ]
     }
     function setup() {
@@ -38,11 +39,10 @@ PopupWindow {
     }
     Component.onCompleted: {
         setup();
-        console.log("hii")
     }
 
     width: container.width
-    height: 3 * 2.08 * Etc.factor + 0.36 * Etc.factor
+    height: Etc.stratagemCount * 2.08 * Etc.factor + 0.36 * Etc.factor
     visible: true
 
     Process {
@@ -53,7 +53,7 @@ PopupWindow {
     
     Rectangle {
         id: container
-        width: sq1.width * 6
+        width: sq1.width * 2 * Etc.stratagemCount
         height: parent.height
         color: "#404040"
         focus: true
@@ -161,8 +161,37 @@ PopupWindow {
                 height: 1.56 * Etc.factor
                 width: 1.56 * Etc.factor
             }
+            Text {
+                y: 0.08 * Etc.factor + height * 0.05
+                x: 0.72 * Etc.factor + parent.width
+                font.family: helldiverRegular.font.family
+                font.pointSize: Etc.factor / 2
+                color: "white"
+                text: "SHUTDOWN"
+            }
             Seq3 {
                 id: seq3
+                y: parent.height - 0.76 * Etc.factor
+                anchors.verticalCenter: none
+                x: 0.72 * Etc.factor + parent.width
+            }
+        }
+        Rectangle {
+            id: sq4
+            color: "green"
+            height: 1.72 * Etc.factor
+            width: 1.72 * Etc.factor
+            x: 0.36 * Etc.factor
+            y: sq3.height + sq3.y + 0.36 * Etc.factor
+            Rectangle {
+                color: "black"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                height: 1.56 * Etc.factor
+                width: 1.56 * Etc.factor
+            }
+            Seq4 {
+                id: seq4
                 x: 0.72 * Etc.factor + parent.width
             }
         }

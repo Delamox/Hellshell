@@ -6,9 +6,9 @@ Item {
     required property string a
     required property int r
     property string arrowColor
-    width: 0.64 * Etc.factor
-    height: 0.64 * Etc.factor
-    x: 0.84 * Etc.factor
+    width: 0.60 * Etc.factor
+    height: 0.60 * Etc.factor
+    x: 0.88 * Etc.factor
     anchors.verticalCenter: parent.verticalCenter
     Item {
         width: parent.width
