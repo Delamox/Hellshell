@@ -18,7 +18,7 @@ Item {
         height: 0.36 * Etc.factor
         anchors.verticalCenter: parent.verticalCenter
         x: 0.16 * Etc.factor
-        source: "svg/backgroundHealthBar.svg"
+        source: "backgroundHealthBar.svg"
         fillMode: Image.PreserveAspectCrop
         horizontalAlignment: Image.AlignRight
         clip: true
