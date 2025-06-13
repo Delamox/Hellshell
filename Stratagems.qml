@@ -41,8 +41,8 @@ PopupWindow {
         setup();
     }
 
-    width: container.width
-    height: Etc.stratagemCount * 2.08 * Etc.factor + 0.36 * Etc.factor
+    implicitWidth: container.width
+    implicitHeight: Etc.stratagemCount * 2.08 * Etc.factor + 0.36 * Etc.factor
     visible: true
 
     Process {
@@ -50,12 +50,64 @@ PopupWindow {
         command: ["systemctl", "poweroff"]
         running: false
     }
-    
     Rectangle {
+        StratagemBase {
+            id: sq1
+            color: "yellow"
+            label: "HELLOO :3"
+            y: 0.36 * Etc.factor
+            Seq1 {
+                id: seq1
+                y: parent.height - 0.76 * Etc.factor
+                anchors.verticalCenter: none
+                x: 0.72 * Etc.factor + parent.width
+            }
+        }
+        
+        StratagemBase {
+            id: sq2
+            color: "red"
+            label: "HIII :3"
+            y: sq1.height + sq1.y + 0.36 * Etc.factor
+            Seq2 {
+                id: seq2
+                y: parent.height - 0.76 * Etc.factor
+                anchors.verticalCenter: none
+                x: 0.72 * Etc.factor + parent.width
+            }
+        }
+        
+        StratagemBase {
+            id: sq3
+            color: "blue"
+            label: "SHUTDOWN"
+            y: sq2.height + sq2.y + 0.36 * Etc.factor
+            Seq3 {
+                id: seq3
+                y: parent.height - 0.76 * Etc.factor
+                anchors.verticalCenter: none
+                x: 0.72 * Etc.factor + parent.width
+            }
+        }
+        
+        StratagemBase {
+            id: sq4
+            color: "green"
+            label: "BLEH :P"
+            y: sq3.height + sq3.y + 0.36 * Etc.factor
+            Seq4 {
+                id: seq4
+                y: parent.height - 0.76 * Etc.factor
+                anchors.verticalCenter: none
+                x: 0.72 * Etc.factor + parent.width
+            }
+        }
+        
         id: container
         width: sq1.width * 2 * Etc.stratagemCount
         height: parent.height
         color: "#404040"
+        // color: "transparent"
         focus: true
 
         Keys.onPressed: (event)=> {
@@ -107,93 +159,6 @@ PopupWindow {
                 return !(value.seq.startsWith(buffer))
             }
         
-        }
-        
-        Rectangle {
-            id: sq1
-            color: "yellow"
-            height: 1.72 * Etc.factor
-            width: 1.72 * Etc.factor
-            x: 0.36 * Etc.factor
-            y: 0.36 * Etc.factor
-            Rectangle {
-                color: "black"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                height: 1.56 * Etc.factor
-                width: 1.56 * Etc.factor
-            }
-            Seq1 {
-                id: seq1
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        Rectangle {
-            id: sq2
-            color: "red"
-            height: 1.72 * Etc.factor
-            width: 1.72 * Etc.factor
-            x: 0.36 * Etc.factor
-            y: sq1.height + sq1.y + 0.36 * Etc.factor
-            Rectangle {
-                color: "black"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                height: 1.56 * Etc.factor
-                width: 1.56 * Etc.factor
-            }
-            Seq2 {
-                id: seq2
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        Rectangle {
-            id: sq3
-            color: "blue"
-            height: 1.72 * Etc.factor
-            width: 1.72 * Etc.factor
-            x: 0.36 * Etc.factor
-            y: sq2.height + sq2.y + 0.36 * Etc.factor
-            Rectangle {
-                color: "black"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                height: 1.56 * Etc.factor
-                width: 1.56 * Etc.factor
-            }
-            Text {
-                y: 0.08 * Etc.factor + height * 0.05
-                x: 0.72 * Etc.factor + parent.width
-                font.family: helldiverRegular.font.family
-                font.pointSize: Etc.factor / 2
-                color: "white"
-                text: "SHUTDOWN"
-            }
-            Seq3 {
-                id: seq3
-                y: parent.height - 0.76 * Etc.factor
-                anchors.verticalCenter: none
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        Rectangle {
-            id: sq4
-            color: "green"
-            height: 1.72 * Etc.factor
-            width: 1.72 * Etc.factor
-            x: 0.36 * Etc.factor
-            y: sq3.height + sq3.y + 0.36 * Etc.factor
-            Rectangle {
-                color: "black"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                height: 1.56 * Etc.factor
-                width: 1.56 * Etc.factor
-            }
-            Seq4 {
-                id: seq4
-                x: 0.72 * Etc.factor + parent.width
-            }
         }
     }
 }

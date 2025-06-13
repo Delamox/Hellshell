@@ -23,7 +23,7 @@ PanelWindow {
     }
 
     color: "#00000000"
-    height: Etc.factor + 10
+    implicitHeight: Etc.factor + 10
 
     HealthBar {
         length: 8 * Etc.factor
