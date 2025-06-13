@@ -1,12 +1,12 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import "."
 
 PopupWindow {
-    required property int factor
-
     property string buffer: ""
     property variant strata
+    
     function defineStrata() {
         strata = [
             {seq: "udrlu", len: 5, act: "yeyy :3", head: seq1, res: []},
@@ -40,8 +40,9 @@ PopupWindow {
         setup();
         console.log("hii")
     }
-    width: 8.0 * factor
-    height: 3 * 1.04 * factor + 0.18 * factor
+
+    width: container.width
+    height: 3 * 2.08 * Etc.factor + 0.36 * Etc.factor
     visible: true
 
     Process {
@@ -52,7 +53,7 @@ PopupWindow {
     
     Rectangle {
         id: container
-        width: parent.width
+        width: sq1.width * 6
         height: parent.height
         color: "#404040"
         focus: true
@@ -111,67 +112,58 @@ PopupWindow {
         Rectangle {
             id: sq1
             color: "yellow"
-            height: 0.86 * factor
-            width: 0.86 * factor
-            x: 0.18 * factor
-            y: 0.18 * factor
+            height: 1.72 * Etc.factor
+            width: 1.72 * Etc.factor
+            x: 0.36 * Etc.factor
+            y: 0.36 * Etc.factor
             Rectangle {
                 color: "black"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                height: 0.78 * factor
-                width: 0.78 * factor
+                height: 1.56 * Etc.factor
+                width: 1.56 * Etc.factor
             }
             Seq1 {
                 id: seq1
-                x: 0.36 * factor + parent.width
-                anchors.verticalCenter: parent.verticalCenter
-                width: 0.32 * factor
-                height: 0.32 * factor
+                x: 0.72 * Etc.factor + parent.width
             }
         }
         Rectangle {
             id: sq2
             color: "red"
-            height: 0.86 * factor
-            width: 0.86 * factor
-            x: 0.18 * factor
-            y: sq1.height + sq1.y + 0.18 * factor
+            height: 1.72 * Etc.factor
+            width: 1.72 * Etc.factor
+            x: 0.36 * Etc.factor
+            y: sq1.height + sq1.y + 0.36 * Etc.factor
             Rectangle {
                 color: "black"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                height: 0.78 * factor
-                width: 0.78 * factor
+                height: 1.56 * Etc.factor
+                width: 1.56 * Etc.factor
             }
             Seq2 {
                 id: seq2
-                x: 0.36 * factor + parent.width
-                anchors.verticalCenter: parent.verticalCenter
-                width: 0.32 * factor
-                height: 0.32 * factor
+                x: 0.72 * Etc.factor + parent.width
             }
         }
         Rectangle {
             id: sq3
             color: "blue"
-            height: 0.86 * factor
-            width: 0.86 * factor
-            x: 0.18 * factor
-            y: sq2.height + sq2.y + 0.18 * factor
+            height: 1.72 * Etc.factor
+            width: 1.72 * Etc.factor
+            x: 0.36 * Etc.factor
+            y: sq2.height + sq2.y + 0.36 * Etc.factor
             Rectangle {
                 color: "black"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                height: 0.78 * factor
-                width: 0.78 * factor
+                height: 1.56 * Etc.factor
+                width: 1.56 * Etc.factor
             }
             Seq3 {
                 id: seq3
-                x: 0.36 * factor + parent.width
-                anchors.verticalCenter: parent.verticalCenter
-                width: 0.32 * factor
-                height: 0.32 * factor
+                x: 0.72 * Etc.factor + parent.width
             }
         }
     }

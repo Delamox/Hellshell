@@ -3,12 +3,12 @@ import QtQuick.Shapes
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.UPower
+import "."
 
 
 PanelWindow {
     id: root
 
-    property int barHeight: 50
     property int margin: 5
     
     anchors {
@@ -23,19 +23,16 @@ PanelWindow {
     }
 
     color: "#00000000"
-    height: barHeight + 10
+    height: Etc.factor + 10
 
     HealthBar {
-        factor: barHeight
-        length: 8 * barHeight
+        length: 8 * Etc.factor
         labelColor: "white"
-        x: 2.5 * barHeight + margin
+        x: 2.5 * Etc.factor + margin
         anchors.verticalCenter: parent.verticalCenter
     }
 
     PlayerLabel {
-        factor: barHeight
-        labelColor: "#a6efff"
         x: margin
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -43,21 +40,15 @@ PanelWindow {
     Stratagems {
         anchor.window: root
         anchor.rect.y: root.height
-        factor: barHeight
     }
     focusable: true
-    // Stratagems {
-    //     factor: barHeight
-    // }
 
     Stim {
-        factor: barHeight
-        x: barHeight * 11 + margin
+        x: Etc.factor * 11 + margin
         anchors.verticalCenter: parent.verticalCenter
     }
 
     Button {
-        factor: barHeight
         labelContent: Time.time
         x: root.width - width - margin
         anchors.verticalCenter: parent.verticalCenter

@@ -2,22 +2,20 @@ import QtQuick
 import QtQuick.Shapes
 import Quickshell
 import Quickshell.Services.UPower
+import "."
 
 Item {
     id: container
 
-    required property int factor
-    required property string labelColor
-
-    width: playerLabelBar.width + 0.20 * factor
+    width: playerLabelBar.width + 0.20 * Etc.factor
     height: playerLabelBar.height
 
 
     Rectangle {
         id: playerLabelLeftBracket
-        width: 0.16 * factor
-        height: factor
-        color: labelColor
+        width: 0.16 * Etc.factor
+        height: Etc.factor
+        color: Etc.labelColor
         anchors {
             top: parent.top
             bottom: parent.bottom
@@ -26,9 +24,9 @@ Item {
     }
     Rectangle {
         id: playerLabelRightBracket
-        width: 0.04 * factor
-        height: factor
-        color: labelColor
+        width: 0.04 * Etc.factor
+        height: Etc.factor
+        color: Etc.labelColor
         anchors {
             top: parent.top
             bottom: parent.bottom
@@ -39,31 +37,31 @@ Item {
     Item {
         id: playerLabelBar
         width: label.width + label.height / 2
-        height: factor
-        x: 0.16 * factor
+        height: Etc.factor
+        x: 0.16 * Etc.factor
 
         Rectangle {
             id: playerLabelTopBracket
             width: parent.width
-            height: 0.04 * factor
-            color: labelColor
+            height: 0.04 * Etc.factor
+            color: Etc.labelColor
         }
         
         Rectangle {
             id: playerLabelBottomBracket
             width: parent.width
-            height: 0.04 * factor
-            y: factor - height
-            color: labelColor
+            height: 0.04 * Etc.factor
+            y: Etc.factor - height
+            color: Etc.labelColor
         }
 
         Text {
             id: label
             text: qsTr("%1%").arg(Math.round(UPower.displayDevice.percentage * 100))
-            color: labelColor
+            color: Etc.labelColor
             x: parent.width / 2 - width / 2
             y: parent.height / 2 - height / 2 + height * 0.05
-            font.pointSize: factor / 2
+            font.pointSize: Etc.factor / 2
             font.family: helldiverRegular.font.family
         }
     }
