@@ -32,7 +32,7 @@ PopupWindow {
     function clear(e, c) {
         e.forEach((element) => {
             element.res.forEach((e) => {
-                e.color = c
+                e.arrowColor = c
             });
         });
     }
@@ -84,7 +84,7 @@ PopupWindow {
 
                 if (buffer.length != 0) {
                     strata.forEach((element) => {
-                        element.head.color = "lightgray";
+                        element.head.arrowColor = "gray";
                         element.head = element.head.children[1];
 
                         if (element.seq == buffer) {
@@ -93,7 +93,7 @@ PopupWindow {
                             }
                             setup();
                         } else {
-                            element.head.color = "white";
+                            element.head.arrowColor = "white";
                         }
                     });
                 }
@@ -124,7 +124,7 @@ PopupWindow {
             }
             Seq1 {
                 id: seq1
-                x: parent.width + 0.48 * factor
+                x: 0.36 * factor + parent.width
                 anchors.verticalCenter: parent.verticalCenter
                 width: 0.32 * factor
                 height: 0.32 * factor
@@ -146,7 +146,7 @@ PopupWindow {
             }
             Seq2 {
                 id: seq2
-                x: parent.width + 0.48 * factor
+                x: 0.36 * factor + parent.width
                 anchors.verticalCenter: parent.verticalCenter
                 width: 0.32 * factor
                 height: 0.32 * factor
@@ -168,7 +168,7 @@ PopupWindow {
             }
             Seq3 {
                 id: seq3
-                x: parent.width + 0.48 * factor
+                x: 0.36 * factor + parent.width
                 anchors.verticalCenter: parent.verticalCenter
                 width: 0.32 * factor
                 height: 0.32 * factor

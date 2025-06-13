@@ -1,37 +1,20 @@
 import QtQuick
 
-Rectangle {
-    Text {
-        text: "u"
-    }
-    Rectangle {
-        width: parent.height
-        height: parent.height
-        anchors.left: parent.right
-        Text {
-            text: "d"
-        }
-        Rectangle {
-            width: parent.height
-            height: parent.height
-            anchors.left: parent.right
-            Text {
-                text: "r"
-            }
-            Rectangle {
-                width: parent.height
-                height: parent.height
-                anchors.left: parent.right
-                Text {
-                    text: "l"
-                }
-                Rectangle {
-                    width: parent.height
-                    height: parent.height
-                    anchors.left: parent.right
-                    Text {
-                        text: "u"
-                    }
+SeqNode {
+    a: "u"
+    r: 0
+    SeqNode {
+        a: "d"
+        r: 180
+        SeqNode {
+            a: "r"
+            r: 90
+            SeqNode {
+                a: "l"
+                r: 270
+                SeqNode {
+                    a: "u"
+                    r: 0
                 }
             }
         }
