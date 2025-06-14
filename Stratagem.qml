@@ -16,4 +16,11 @@ Rectangle {
         height: 1.56 * Etc.factor
         width: 1.56 * Etc.factor
     }
+    Text {
+        text: settings.label
+        font.pointSize: Etc.factor / 2
+        font.family: helldiverRegular.font.family
+        x: 2.04 * Etc.factor
+        color: "white"
+    }
 }

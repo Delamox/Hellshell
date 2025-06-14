@@ -7,17 +7,20 @@ PopupWindow {
     property string buffer: ""
     property var sequences: []
     property var strata: []
+    id: root
     
-    implicitWidth: 200
+    implicitWidth: 12.48 * Etc.factor
     implicitHeight: Etc.stratagems.length * 2.08 * Etc.factor + 0.36 * Etc.factor
     color: "#404040"
     Component.onCompleted: {
         setup()
     }
+    function largest() {
+    }
     function setup() {
         Etc.stratagems.forEach((element) => {
             var arrowRepeater = stratagems.itemAt(element.nr).children[stratagems.itemAt(element.nr).children.length - 1]
-            sequences.push({nr: element.nr, sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater})
+            sequences.push({sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater})
         });
         reset()
     }

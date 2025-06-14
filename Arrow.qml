@@ -8,7 +8,8 @@ Item {
     width: 0.44 * Etc.factor
     height: 0.44 * Etc.factor
     rotation: settings.direction
-    x: 2 * width * settings.index
+    x: 2 * width * settings.index + 2.04 * Etc.factor
+    y: parent.height - 0.76 * Etc.factor
     Rectangle {
         id: stick
         width: parent.width * 0.5
