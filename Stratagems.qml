@@ -1,11 +1,15 @@
 import QtQuick
 import Quickshell
+import QtMultimedia
+import Quickshell.Io
 import "."
 
 PopupWindow {
     property string buffer: ""
     property var sequences: []
     property var strata: []
+    property var dashSFX: [dash1, dash2, dash3]
+    property var failSFX: [fail1, fail2, fail3]
     id: root
     
     implicitWidth: 12.48 * Etc.factor
@@ -46,11 +50,13 @@ PopupWindow {
         strata = strata.filter(startsWith);
 
         if (strata.length == 0) {
+            failSFX[Math.floor(Math.random() * 3)].play();
             reset();
             // root.visible = false
         }
 
         if (buffer.length != 0) {
+            dashSFX[Math.floor(Math.random() * 3)].play();
             strata.forEach((element) => {
                 element.arrowRepeater.itemAt(element.head).arrowColor = "gray"
                 element.head = element.head + 1
@@ -60,12 +66,43 @@ PopupWindow {
                         shutdownProc.running = true;
                     }
                     reset();
-                    root.visible = false
+                    // root.visible = false
                 } else {
                 element.arrowRepeater.itemAt(element.head).arrowColor = "white"
                 }
             });
         }
+    }
+
+    SoundEffect {
+        id: dash1
+        source: "sfx/dash1.wav"
+    }
+    SoundEffect {
+        id: dash2
+        source: "sfx/dash2.wav"
+    }
+    SoundEffect {
+        id: dash3
+        source: "sfx/dash3.wav"
+    }
+    SoundEffect {
+        id: fail1
+        source: "sfx/fail1.wav"
+    }
+    SoundEffect {
+        id: fail2
+        source: "sfx/fail2.wav"
+    }
+    SoundEffect {
+        id: fail3
+        source: "sfx/fail3.wav"
+    }
+
+    Process {
+        id: shutdownProc
+        running: false
+        command: ["systemctl", "shutdown"]
     }
     
     function startsWith(value) {
