@@ -10,7 +10,14 @@ PanelWindow {
     id: root
 
     property int margin: 5
-    
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        // hoverEnabled: true
+        onClicked: (strataContainer.visible) ? strataContainer.visible = false : strataContainer.visible = true
+    }    
+
     anchors {
         top:true
         right:true
@@ -38,6 +45,7 @@ PanelWindow {
     }
     
     Stratagems {
+        id: strataContainer
         anchor.window: root
         anchor.rect.y: root.height
     }

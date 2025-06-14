@@ -4,6 +4,7 @@ import Quickshell.Io
 import "."
 
 PopupWindow {
+    id: root
     property string buffer: ""
     property variant strata
     
@@ -43,7 +44,7 @@ PopupWindow {
 
     implicitWidth: container.width
     implicitHeight: Etc.stratagemCount * 2.08 * Etc.factor + 0.36 * Etc.factor
-    visible: true
+    // visible: true
 
     Process {
         id: shutdownProc
@@ -133,6 +134,7 @@ PopupWindow {
             
                 if (strata.length == 0) {
                     setup();
+                    root.visible = false
                 }
 
                 if (buffer.length != 0) {
@@ -141,10 +143,11 @@ PopupWindow {
                         element.head = element.head.children[1];
 
                         if (element.seq == buffer) {
-                            if (element.act == "shutdown") {
+                            if (element.act == "shutdown -1") {
                                 shutdownProc.running = true;
                             }
                             setup();
+                            root.visible = false
                         } else {
                             element.head.arrowColor = "white";
                         }
