@@ -1,117 +1,102 @@
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import "."
 
 PopupWindow {
-    id: root
+    visible: true
     property string buffer: ""
-    property variant strata
+    property var sequences: []
+    property var strata: []
     
-    function defineStrata() {
-        strata = [
-            {seq: "udrlu", len: 5, act: "yeyy :3", head: seq1, res: []},
-            {seq: "ddlrlr", len: 6, act: "yoooeoeyy :3", head: seq2, res: []},
-            {seq: "urddd", len: 5, act: "shutdown", head: seq3, res: []},
-            {seq: "ddur", len: 4, act: "resupply", head: seq4, res: []},
-        ]
+    implicitWidth: 200
+    implicitHeight: Etc.stratagems.length * 2.08 * Etc.factor + 0.36 * Etc.factor
+    color: "#404040"
+    Component.onCompleted: {
+        setup()
     }
     function setup() {
-        defineStrata();
-        strata.forEach((element) => {
-            element.res = children(element.head, [])
+        Etc.stratagems.forEach((element) => {
+            var arrowRepeater = stratagems.itemAt(element.nr).children[stratagems.itemAt(element.nr).children.length - 1]
+            sequences.push({nr: element.nr, sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater})
         });
-        clear(strata, "lightgray")
+        reset()
+    }
+    function reset() {
+        sequences.forEach((element) => {
+            clean(element, "lightgray")
+            element.head = 0
+        })
+        strata = clone(sequences)
         buffer = "";
     }
-    function children(e, arr) {
-        if (e.children.length == 2) {
-            arr = children(e.children[1], arr); 
+    function clean(e, c) {
+        for (let i = 0; i < e.size; i++) {
+            e.arrowRepeater.itemAt(i).arrowColor = c
         }
-        arr.push(e)
-        return arr
     }
-    function clear(e, c) {
-        e.forEach((element) => {
-            element.res.forEach((e) => {
-                e.arrowColor = c
+    function clone(e) {
+        return e
+    }
+    function input() {
+        strata.filter(doesNotStartsWith).forEach((element) => {clean(element, "gray")})
+        strata = strata.filter(startsWith);
+
+        if (strata.length == 0) {
+            reset();
+            // root.visible = false
+        }
+
+        if (buffer.length != 0) {
+            strata.forEach((element) => {
+                element.arrowRepeater.itemAt(element.head).arrowColor = "gray"
+                element.head = element.head + 1
+
+                if (element.sequence == buffer) {
+                    if (element.action == "shutdown -1") {
+                        shutdownProc.running = true;
+                    }
+                    reset();
+                    // root.visible = false
+                } else {
+                element.arrowRepeater.itemAt(element.head).arrowColor = "white"
+                }
             });
+        }
+    }
+    
+    function startsWith(value) {
+        return value.sequence.startsWith(buffer)
+    }
+    function doesNotStartsWith(value) {
+        return !(value.sequence.startsWith(buffer))
+    }
+
+    function letterToDirection(e) {
+        switch (e) {
+            case "u":
+                return 0
+            case "r":
+                return 90
+            case "d":
+                return 180
+            case "l":
+                return 270
+        }
+    }
+
+    function arrowSequence(e) {
+        var array = [];
+        e.sequence.split('').forEach((element, index) => {
+            array.push({direction: letterToDirection(element), index: index});
         });
-    }
-    Component.onCompleted: {
-        setup();
-    }
-
-    implicitWidth: container.width
-    implicitHeight: Etc.stratagemCount * 2.08 * Etc.factor + 0.36 * Etc.factor
-    // visible: true
-
-    Process {
-        id: shutdownProc
-        command: ["systemctl", "poweroff"]
-        running: false
+        return array
     }
     Rectangle {
-        StratagemBase {
-            id: sq1
-            color: "yellow"
-            label: "HELLOO :3"
-            y: 0.36 * Etc.factor
-            Seq1 {
-                id: seq1
-                y: parent.height - 0.76 * Etc.factor
-                anchors.verticalCenter: none
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        
-        StratagemBase {
-            id: sq2
-            color: "red"
-            label: "HIII :3"
-            y: sq1.height + sq1.y + 0.36 * Etc.factor
-            Seq2 {
-                id: seq2
-                y: parent.height - 0.76 * Etc.factor
-                anchors.verticalCenter: none
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        
-        StratagemBase {
-            id: sq3
-            color: "blue"
-            label: "SHUTDOWN"
-            y: sq2.height + sq2.y + 0.36 * Etc.factor
-            Seq3 {
-                id: seq3
-                y: parent.height - 0.76 * Etc.factor
-                anchors.verticalCenter: none
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        
-        StratagemBase {
-            id: sq4
-            color: "green"
-            label: "BLEH :P"
-            y: sq3.height + sq3.y + 0.36 * Etc.factor
-            Seq4 {
-                id: seq4
-                y: parent.height - 0.76 * Etc.factor
-                anchors.verticalCenter: none
-                x: 0.72 * Etc.factor + parent.width
-            }
-        }
-        
-        id: container
-        width: sq1.width * 2 * Etc.stratagemCount
-        height: parent.height
-        color: "#404040"
-        // color: "transparent"
+        anchors.fill: parent
         focus: true
-
-        Keys.onPressed: (event)=> {
+        color: "transparent"
+        
+        Keys.onPressed: (event) => {
             if (event.key == 16777235 || event.key == Qt.Key_W){
                 buffer = buffer + "u"
                 input();
@@ -125,43 +110,23 @@ PopupWindow {
                 buffer = buffer + "r"
                 input();
             }
-            function input() {
-                var deleteBuffer = [];
-
-                deleteBuffer = strata.filter(doesNotStartsWith);
-                strata = strata.filter(startsWith);
-                clear(deleteBuffer, "gray")
+        }
             
-                if (strata.length == 0) {
-                    setup();
-                    root.visible = false
-                }
-
-                if (buffer.length != 0) {
-                    strata.forEach((element) => {
-                        element.head.arrowColor = "gray";
-                        element.head = element.head.children[1];
-
-                        if (element.seq == buffer) {
-                            if (element.act == "shutdown -1") {
-                                shutdownProc.running = true;
-                            }
-                            setup();
-                            root.visible = false
-                        } else {
-                            element.head.arrowColor = "white";
-                        }
-                    });
+        Repeater {
+            id: stratagems
+            model: Etc.stratagems
+            Stratagem {
+                required property var modelData
+                settings: modelData
+                Repeater {
+                    id: arrows
+                    model: arrowSequence(modelData)
+                    Arrow {
+                        required property var modelData
+                        settings: modelData
+                    }
                 }
             }
-
-            function startsWith(value) {
-                return value.seq.startsWith(buffer)
-            }
-            function doesNotStartsWith(value) {
-                return !(value.seq.startsWith(buffer))
-            }
-        
         }
     }
 }
