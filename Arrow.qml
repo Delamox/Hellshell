@@ -5,10 +5,10 @@ import "."
 Item {
     required property var settings
     property string arrowColor: "lightgray"
-    width: 0.44 * Etc.factor
-    height: 0.44 * Etc.factor
+    width: 0.6 * Etc.factor
+    height: 0.6 * Etc.factor
     rotation: settings.direction
-    x: 2 * width * settings.index + 2.04 * Etc.factor
+    x: 0.84 * Etc.factor * settings.index + 2.04 * Etc.factor
     y: parent.height - 0.76 * Etc.factor
     Rectangle {
         id: stick

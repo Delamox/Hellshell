@@ -3,7 +3,6 @@ import Quickshell
 import "."
 
 PopupWindow {
-    visible: true
     property string buffer: ""
     property var sequences: []
     property var strata: []
@@ -20,7 +19,8 @@ PopupWindow {
     function setup() {
         Etc.stratagems.forEach((element) => {
             var arrowRepeater = stratagems.itemAt(element.nr).children[stratagems.itemAt(element.nr).children.length - 1]
-            sequences.push({sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater})
+            var labelText = stratagems.itemAt(element.nr).children[1]
+            sequences.push({sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater, labelText: labelText})
         });
         reset()
     }
@@ -33,6 +33,7 @@ PopupWindow {
         buffer = "";
     }
     function clean(e, c) {
+        e.labelText.color = c
         for (let i = 0; i < e.size; i++) {
             e.arrowRepeater.itemAt(i).arrowColor = c
         }
@@ -55,11 +56,11 @@ PopupWindow {
                 element.head = element.head + 1
 
                 if (element.sequence == buffer) {
-                    if (element.action == "shutdown -1") {
+                    if (element.action == "shutdown") {
                         shutdownProc.running = true;
                     }
                     reset();
-                    // root.visible = false
+                    root.visible = false
                 } else {
                 element.arrowRepeater.itemAt(element.head).arrowColor = "white"
                 }

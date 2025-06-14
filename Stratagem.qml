@@ -15,12 +15,19 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         height: 1.56 * Etc.factor
         width: 1.56 * Etc.factor
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            height: 1.40 * Etc.factor
+            width: 1.40 * Etc.factor
+            source: settings.icon
+        }
     }
     Text {
         text: settings.label
         font.pointSize: Etc.factor / 2
         font.family: helldiverRegular.font.family
         x: 2.04 * Etc.factor
-        color: "white"
+        y: height * 0.05
     }
 }
