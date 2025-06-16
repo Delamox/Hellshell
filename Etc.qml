@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-    property int factor: 50
+    property int factor: 25
     property int margin: factor / 5
     property color labelColor: "#a6efff"
     property int workspaces: 5

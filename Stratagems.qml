@@ -16,7 +16,7 @@ PopupWindow {
     
     implicitWidth: 12.48 * Etc.factor
     implicitHeight: Etc.stratagems.length * 2.08 * Etc.factor + 0.36 * Etc.factor
-    color: "#404040"
+    color: "#c0000000"
 
     Component.onCompleted: {
         setup()
@@ -25,9 +25,13 @@ PopupWindow {
     }
     function setup() {
         Etc.stratagems.forEach((element) => {
-            var arrowRepeater = stratagems.itemAt(element.nr).children[stratagems.itemAt(element.nr).children.length - 1]
+            var arrowRepeater = stratagems.itemAt(element.nr).children[
+                stratagems.itemAt(element.nr).children.length - 1
+            ];
             var labelText = stratagems.itemAt(element.nr).children[1]
-            sequences.push({sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater, labelText: labelText})
+            sequences.push(
+                {sequence: element.sequence, action: element.action, head: 0, size: element.sequence.length, arrowRepeater: arrowRepeater, labelText: labelText}
+            );
         });
         reset()
     }
@@ -75,7 +79,7 @@ PopupWindow {
         if (strata.length == 0) {
             failSFX[lastSFX].play();
             reset();
-            // root.visible = false
+            root.visible = false
         }
 
         if (buffer.length != 0) {
@@ -87,10 +91,8 @@ PopupWindow {
                 if (element.sequence == buffer) {
                     // action = element.action;
                     test.running = true;
-                    // actProc.running = true;
-                    // console.log(actProc.command);
                     reset();
-                    // root.visible = false
+                    root.visible = false
                 } else {
                 element.arrowRepeater.itemAt(element.head).arrowColor = "white"
                 }
@@ -123,16 +125,10 @@ PopupWindow {
         source: "sfx/fail3.wav"
     }
 
-    // Process {
-    //     id: actProc
-    //     running: false
-    //     command: ["/home/del/git/Hellshell/commands.sh", "screenshot"]
-    // }
     Process {
         id: test
         running: false
-        // command: ["/home/del/git/Hellshell/commands.sh", "screenshot"]
-        command: ["kitty"]
+        command: ["/home/del/git/Hellshell/commands.sh", "screenshot"]
     }
     
     function startsWith(value) {

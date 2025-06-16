@@ -35,23 +35,26 @@ PanelWindow {
         color: "transparent"
 
         HealthBar {
+            id: healthBar
             length: 8 * Etc.factor
             labelColor: "white"
-            x: 3 * Etc.factor + Etc.margin
+            x: playerLabel.width + Etc.factor
         }
 
         PlayerLabel {
+            id: playerLabel
             x: Etc.margin
         }
     
         Stratagems {
             id: strataContainer
             anchor.window: root
-            anchor.rect.y: root.height
+            anchor.rect.y: root.height + 1.4 * Etc.factor
+            anchor.rect.x: 1.72 * Etc.factor
         }
 
         Stim {
-            x: Etc.factor * 11.5 + Etc.margin
+            x: playerLabel.width + healthBar.width + 2 * Etc.factor
         }
 
         Button {

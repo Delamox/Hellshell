@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Shapes
 import Quickshell
 import Quickshell.Services.UPower
+import Quickshell.Services.Pipewire
 import "."
 
 Item {
@@ -10,6 +11,12 @@ Item {
     width: playerLabelBar.width + 0.20 * Etc.factor
     height: playerLabelBar.height
     anchors.verticalCenter: parent.verticalCenter
+
+    property PwNode sink: Pipewire.defaultAudioSink
+    property var volume: sink.audio.volume
+    PwObjectTracker {
+        objects: [ sink ]
+    }
 
     Rectangle {
         id: playerLabelLeftBracket
@@ -57,7 +64,8 @@ Item {
 
         Text {
             id: label
-            text: qsTr("%1%").arg(Math.round(UPower.displayDevice.percentage * 100))
+            // text: qsTr("%1%").arg(Math.round(UPower.displayDevice.percentage * 100))
+            text: qsTr("%1%").arg(Math.round(volume * 100))
             color: Etc.labelColor
             x: parent.width / 2 - width / 2
             y: parent.height / 2 - height / 2 + height * 0.05

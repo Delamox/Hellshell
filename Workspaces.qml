@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell.Hyprland
 import "."
 Item {
-    property int active: Hyprland.focusedWorkspace.id - 1
+    property int active: Hyprland.focusedWorkspace?.id - 1
 
     anchors.centerIn: parent
     width: container.width + 0.16 * Etc.factor
