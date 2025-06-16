@@ -9,7 +9,7 @@ Item {
 
     width: playerLabelBar.width + 0.20 * Etc.factor
     height: playerLabelBar.height
-
+    anchors.verticalCenter: parent.verticalCenter
 
     Rectangle {
         id: playerLabelLeftBracket

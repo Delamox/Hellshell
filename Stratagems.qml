@@ -10,11 +10,14 @@ PopupWindow {
     property var strata: []
     property var dashSFX: [dash1, dash2, dash3]
     property var failSFX: [fail1, fail2, fail3]
+    property string action
+    property int lastSFX: 0
     id: root
     
     implicitWidth: 12.48 * Etc.factor
     implicitHeight: Etc.stratagems.length * 2.08 * Etc.factor + 0.36 * Etc.factor
     color: "#404040"
+
     Component.onCompleted: {
         setup()
     }
@@ -45,26 +48,47 @@ PopupWindow {
     function clone(e) {
         return e
     }
+    function keyHandler(event) {
+        if (event.key == 16777235 || event.key == Qt.Key_W){
+            buffer = buffer + "u"
+            input();
+        } else if (event.key == 16777237 || event.key == Qt.Key_S){
+            buffer = buffer + "d"
+            input();
+        } else if (event.key == 16777234 || event.key == Qt.Key_A){
+            buffer = buffer + "l"
+            input();
+        } else if (event.key == 16777236 || event.key == Qt.Key_D){
+            buffer = buffer + "r"
+            input();
+        }
+    }
     function input() {
         strata.filter(doesNotStartsWith).forEach((element) => {clean(element, "gray")})
         strata = strata.filter(startsWith);
+        if (lastSFX == 2) {
+            lastSFX = 0
+        } else {
+            lastSFX++
+        }
 
         if (strata.length == 0) {
-            failSFX[Math.floor(Math.random() * 3)].play();
+            failSFX[lastSFX].play();
             reset();
             // root.visible = false
         }
 
         if (buffer.length != 0) {
-            dashSFX[Math.floor(Math.random() * 3)].play();
+            dashSFX[lastSFX].play();
             strata.forEach((element) => {
                 element.arrowRepeater.itemAt(element.head).arrowColor = "gray"
                 element.head = element.head + 1
 
                 if (element.sequence == buffer) {
-                    if (element.action == "shutdown") {
-                        shutdownProc.running = true;
-                    }
+                    // action = element.action;
+                    test.running = true;
+                    // actProc.running = true;
+                    // console.log(actProc.command);
                     reset();
                     // root.visible = false
                 } else {
@@ -99,10 +123,16 @@ PopupWindow {
         source: "sfx/fail3.wav"
     }
 
+    // Process {
+    //     id: actProc
+    //     running: false
+    //     command: ["/home/del/git/Hellshell/commands.sh", "screenshot"]
+    // }
     Process {
-        id: shutdownProc
+        id: test
         running: false
-        command: ["systemctl", "shutdown"]
+        // command: ["/home/del/git/Hellshell/commands.sh", "screenshot"]
+        command: ["kitty"]
     }
     
     function startsWith(value) {
@@ -132,25 +162,15 @@ PopupWindow {
         });
         return array
     }
+
+    
     Rectangle {
         anchors.fill: parent
         focus: true
         color: "transparent"
         
         Keys.onPressed: (event) => {
-            if (event.key == 16777235 || event.key == Qt.Key_W){
-                buffer = buffer + "u"
-                input();
-            } else if (event.key == 16777237 || event.key == Qt.Key_S){
-                buffer = buffer + "d"
-                input();
-            } else if (event.key == 16777234 || event.key == Qt.Key_A){
-                buffer = buffer + "l"
-                input();
-            } else if (event.key == 16777236 || event.key == Qt.Key_D){
-                buffer = buffer + "r"
-                input();
-            }
+            keyHandler(event);
         }
             
         Repeater {

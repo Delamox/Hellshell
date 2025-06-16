@@ -12,6 +12,7 @@ Item {
     
     width: length
     height: Etc.factor
+    anchors.verticalCenter: parent.verticalCenter
 
     Image {
         width: length - 0.32 * Etc.factor

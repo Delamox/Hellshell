@@ -4,9 +4,10 @@ import "."
 
 Item {
     width: buttonBar.width + 0.08 * Etc.factor
-    height: Etc.factor
+    anchors.verticalCenter: parent.verticalCenter
 
-    required property string labelContent
+    required property int labelHeight
+    required property int labelWidth
 
     Item {
         id: buttonLeftBar
@@ -27,7 +28,7 @@ Item {
     }
     Item {
         id: buttonBar
-        width: label.width + label.height / 2
+        width: labelWidth + labelHeight
         height: Etc.factor
         x: 0.04 * Etc.factor
         Rectangle {
@@ -48,15 +49,6 @@ Item {
             y: 0.12 * Etc.factor
             color: "#80404040"
 
-            Text {
-                id: label
-                text: labelContent
-                color: "white"
-                x: parent.width / 2 - width / 2
-                y: parent.height / 2 - height / 2 + height * 0.05
-                font.pointSize: Etc.factor / 2
-                font.family: helldiverRegular.font.family
-            }
         }
     }
     Item {

@@ -8,6 +8,7 @@ Item {
 
     height: Etc.factor
     width: 1.32 * Etc.factor
+    anchors.verticalCenter: parent.verticalCenter
     Rectangle {
         id: globalColor
         color: UPower.displayDevice.state == "1" ? "white" : "#404040"
