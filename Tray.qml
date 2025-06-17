@@ -25,7 +25,6 @@ Item {
                 source: {
                     // stolen from sora
                     const icon = modelData.icon;
-                    console.log(icon)
                     if (icon.includes("?path=")) {
                         const [name, path] = icon.split("?path=");
                         return `file://${path}/${name.slice(name.lastIndexOf("/") + 1)}`;

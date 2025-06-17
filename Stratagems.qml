@@ -21,7 +21,10 @@ PopupWindow {
     Component.onCompleted: {
         setup()
     }
-    function largest() {
+    function tryExit() {
+        if (buffer == "") {
+            visible = false;
+        }
     }
     function setup() {
         Etc.stratagems.forEach((element) => {
@@ -89,8 +92,8 @@ PopupWindow {
                 element.head = element.head + 1
 
                 if (element.sequence == buffer) {
-                    // action = element.action;
-                    test.running = true;
+                    action = element.action;
+                    proc.startDetached();
                     reset();
                     root.visible = false
                 } else {
@@ -126,9 +129,9 @@ PopupWindow {
     }
 
     Process {
-        id: test
+        id: proc
         running: false
-        command: ["/home/del/git/Hellshell/commands.sh", "screenshot"]
+        command: ["bash", qsTr("%1/commands.sh").arg(Quickshell.shellRoot), action]
     }
     
     function startsWith(value) {

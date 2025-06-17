@@ -13,9 +13,15 @@ PanelWindow {
 
     MouseArea {
         id: mouseArea
-        anchors.fill: parent
-        // hoverEnabled: true
-        onClicked: (strataContainer.visible) ? strataContainer.visible = false : strataContainer.visible = true
+        anchors {
+            top: parent.top
+            left: parent.left
+            bottom: parent.bottom
+        }
+        width: parent.width / 4
+        hoverEnabled: true
+        onEntered: { strataContainer.visible = true }
+        onExited: { strataContainer.tryExit() }
     }
     anchors {
         top:true
@@ -35,6 +41,7 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: "transparent"
+        focus: true
 
         HealthBar {
             id: healthBar
@@ -47,7 +54,10 @@ PanelWindow {
             id: playerLabel
             x: Etc.margin
         }
-    
+
+        Keys.onPressed: (event) => {
+            strataContainer.keyHandler(event);
+        }
         Stratagems {
             id: strataContainer
             anchor.window: root

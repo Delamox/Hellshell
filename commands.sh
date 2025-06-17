@@ -6,4 +6,13 @@ case $1 in
   "shutdown")
     systemctl poweroff
     ;;
+  "browser")
+    firefox
+    ;;
+  "terminal")
+    kitty
+    ;;
+  "files")
+    nemo
+    ;;
 esac
