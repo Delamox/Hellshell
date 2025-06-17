@@ -1,3 +1,5 @@
+//@ pragma UseQApplication
+
 import QtQuick
 import QtQuick.Shapes
 import Quickshell
@@ -68,6 +70,17 @@ PanelWindow {
         }
 
         Button {
+            x: root.width - width - Etc.margin * 2 - clock.width
+            labelHeight: tray.height
+            labelWidth: tray.width
+            height: Etc.factor
+            Tray {
+                id: tray
+            }
+        }
+
+        Button {
+            id: clock
             x: root.width - width - Etc.margin
             labelHeight: buttonLabel.height
             labelWidth: buttonLabel.width
