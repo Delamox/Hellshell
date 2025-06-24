@@ -56,18 +56,20 @@ PopupWindow {
         return e
     }
     function keyHandler(event) {
-        if (event.key == 16777235 || event.key == Qt.Key_W){
-            buffer = buffer + "u"
-            input();
-        } else if (event.key == 16777237 || event.key == Qt.Key_S){
-            buffer = buffer + "d"
-            input();
-        } else if (event.key == 16777234 || event.key == Qt.Key_A){
-            buffer = buffer + "l"
-            input();
-        } else if (event.key == 16777236 || event.key == Qt.Key_D){
-            buffer = buffer + "r"
-            input();
+        if (visible) {
+            if (event.key == 16777235 || event.key == Qt.Key_W){
+                buffer = buffer + "u"
+                input();
+            } else if (event.key == 16777237 || event.key == Qt.Key_S){
+                buffer = buffer + "d"
+                input();
+            } else if (event.key == 16777234 || event.key == Qt.Key_A){
+                buffer = buffer + "l"
+                input();
+            } else if (event.key == 16777236 || event.key == Qt.Key_D){
+                buffer = buffer + "r"
+                input();
+            }
         }
     }
     function input() {
@@ -131,7 +133,7 @@ PopupWindow {
     Process {
         id: proc
         running: false
-        command: ["bash", qsTr("%1/commands.sh").arg(Quickshell.shellRoot), action]
+        command: ["bash", qsTr("%1/commands.sh").arg(Quickshell.configDir), action]
     }
     
     function startsWith(value) {

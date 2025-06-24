@@ -7,7 +7,7 @@ case $1 in
     systemctl poweroff
     ;;
   "browser")
-    firefox
+    floorp
     ;;
   "terminal")
     kitty
@@ -15,4 +15,9 @@ case $1 in
   "files")
     nemo
     ;;
+  "steam")
+    steam
+    ;;
+  "unbeatable")
+    steam steam://rungameid/2240620
 esac

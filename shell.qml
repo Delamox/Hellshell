@@ -85,6 +85,7 @@ PanelWindow {
             labelWidth: tray.width
             height: Etc.factor
             Tray {
+                rootWindow: root
                 id: tray
             }
         }

@@ -7,6 +7,7 @@ Item {
     anchors.centerIn: parent
     width: container.width + 0.16 * Etc.factor
     height: container.height
+    required property var rootWindow
 
     Item {
         id: container
@@ -17,13 +18,14 @@ Item {
             id: repeater
             model: SystemTray.items
             IconImage {
+                id: trayItem
                 required property var modelData
                 required property int index
                 width: 0.76 * Etc.factor
                 height: 0.76 * Etc.factor
                 x: 0.76 * index * Etc.factor
                 source: {
-                    // stolen from sora
+                    // stolen from sora, i dont even know what it does tbh, but i assume it fixes something lmao.
                     const icon = modelData.icon;
                     if (icon.includes("?path=")) {
                         const [name, path] = icon.split("?path=");
@@ -31,10 +33,13 @@ Item {
                     }
                     return modelData.icon;
                 }
-                QsMenuAnchor {
-                    id: menu
-                    menu: modelData.menu
-                    anchor.item: container
+
+                TrayMenu {
+                    id: menuItems
+                    anchor.window: rootWindow
+                    anchor.rect.y: rootWindow.height + 1.4 * Etc.factor
+                    anchor.rect.x: rootWindow.width - 1.72 * Etc.factor - width
+                    trayItem: modelData.menu
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -43,7 +48,7 @@ Item {
                         if (event.button == Qt.LeftButton) {
                             modelData.activate();
                         } else if (modelData.hasMenu) {
-                            menu.open();
+                            menuItems.toggle();
                         }
                     }
                 }
